@@ -6,6 +6,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.alejandrokantun.recyclerviewexample.R
 import com.alejandrokantun.recyclerviewexample.SuperHero
+import com.bumptech.glide.Glide
 
 class SuperHeroViewHolder(view:View):RecyclerView.ViewHolder(view) {
     val superHeroName = view.findViewById<TextView>(R.id.tvSuperHeroName)
@@ -18,5 +19,6 @@ class SuperHeroViewHolder(view:View):RecyclerView.ViewHolder(view) {
         superHeroName.text = superHeroModel.superHero
         realName.text = superHeroModel.realName
         publisher.text = superHeroModel.publisher
+        Glide.with(photo.context).load(superHeroModel.photo).into(photo)
     }
 }
