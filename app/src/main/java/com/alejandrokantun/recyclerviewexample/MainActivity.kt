@@ -2,6 +2,9 @@ package com.alejandrokantun.recyclerviewexample
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alejandrokantun.recyclerviewexample.adapter.SuperHeroAdapter
@@ -17,7 +20,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun initRecyclerView(){
-        binding.recyclerSuperHero.layoutManager = LinearLayoutManager(this)
-        binding.recyclerSuperHero.adapter = SuperHeroAdapter(SuperHeroProvider.superHeroList)
+        val manager = LinearLayoutManager(this)
+        //if you want to create grid style you can change from Linearlayout to gridLayoutManager and add the number of columns
+        //val manager = GridLayoutManager(this,4)
+        val decoration = DividerItemDecoration(this,manager.orientation)
+        binding.recyclerSuperHero.layoutManager = manager
+        binding.recyclerSuperHero.adapter = SuperHeroAdapter(SuperHeroProvider.superHeroList) {superhero->
+            onItemSelected(
+                superhero
+            )
+        }
+        //binding.recyclerSuperHero.addItemDecoration(decoration)
+    }
+
+    fun onItemSelected(superHero:SuperHero){
+        Toast.makeText(this, "el nombre del superHero ${superHero.superHero}", Toast.LENGTH_SHORT).show()
     }
 }
